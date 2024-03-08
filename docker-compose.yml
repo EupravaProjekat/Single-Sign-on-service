@@ -1,0 +1,35 @@
+version: '0.1'
+services:
+
+  sso-service:
+    container_name: sso-service
+    build: ./
+    restart: always
+    ports:
+      - "9094:9094"
+    environment:
+      - MONGO_DB_URI=mongodb://root:pass@mongo_euprava:27017
+    depends_on:
+      mongo_euprava:
+          condition: service_healthy
+  mongo_euprava:
+    container_name: mongo_euprava
+    image: mongo
+    restart: always
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: pass
+      MONGO_INITDB_DATABASE: mongo_euprava
+    # Docker healtcheck - checks if database is "alive"
+    healthcheck:
+      test: echo 'db.runCommand("ping").ok'
+      interval: 10s
+      timeout: 10s
+      retries: 10
+    volumes:
+      - mongo_euprava:/data/db
+
+volumes:
+  mongo_euprava:
