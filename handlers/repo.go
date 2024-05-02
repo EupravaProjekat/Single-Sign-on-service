@@ -193,7 +193,7 @@ func (pr *AuthRepo) Login(email, password string) error {
 		return err
 	}
 	if auth.Email == "" || !auth.Activated {
-		return err
+		return errors.New("activation failed")
 	}
 
 	return nil

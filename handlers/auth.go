@@ -118,7 +118,7 @@ func (s *MyAuthServer) Register(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Send activation link to the user via email
-	activationLink := fmt.Sprintf("http://localhost:9090/activate/%s/%s", out.Email, out.Ticket)
+	activationLink := fmt.Sprintf("http://localhost:9094/activate/%s/%s", out.Email, out.Ticket)
 
 	if err := sendActivationEmail(out.Email, activationLink); err != nil {
 		s.logger.Println("Failed to send activation email:", err)
