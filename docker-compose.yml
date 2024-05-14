@@ -1,4 +1,4 @@
-version: '0.1'
+version: '3.0'
 services:
 
   sso-service:
@@ -12,6 +12,17 @@ services:
     depends_on:
       mongo_euprava:
           condition: service_healthy
+  border-service:
+    container_name: border-service
+    build: ../border-police
+    restart: always
+    ports:
+      - "9098:9098"
+    environment:
+      - MONGO_DB_URI=mongodb://root:pass@mongo_euprava:27017
+    depends_on:
+      mongo_euprava:
+        condition: service_healthy
   mongo_euprava:
     container_name: mongo_euprava
     image: mongo
