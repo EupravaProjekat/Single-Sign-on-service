@@ -143,7 +143,7 @@ func DecodeBodyRes2(r io.Reader) (*protosRes.Emaill, error) {
 	}
 	return &rt, nil
 }
-func DecodeBodyAuth(r io.Reader) (*RequestRegister, error) {
+func DecodeBodyAuth(r io.Reader) (*protosRes.RequestRegister, error) {
 	dec := json.NewDecoder(r)
 	dec.DisallowUnknownFields()
 
