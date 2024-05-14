@@ -23,6 +23,17 @@ services:
     depends_on:
       mongo_euprava:
         condition: service_healthy
+  prosecution-service:
+    container_name: prosecution-service
+    build: ../prosecution
+    restart: always
+    ports:
+      - "9097:9097"
+    environment:
+      - MONGO_DB_URI=mongodb://root:pass@mongo_euprava:27017
+    depends_on:
+      mongo_euprava:
+        condition: service_healthy
   mongo_euprava:
     container_name: mongo_euprava
     image: mongo
